@@ -31,12 +31,29 @@ There are two activities to structural design which feed into the above question
 ### Architecture Characteristics
 We have requirements for Going, Going, Gone. This is part of the structural design. We will do the logical architecture next.
 
-![image](https://user-images.githubusercontent.com/27693622/225908893-802f915b-8e46-447e-bd27-90f4d8db3e74.png)
-
+![image](https://user-images.githubusercontent.com/27693622/225914730-2b7ad86a-9401-4cf7-bf8f-9c6372efe353.png)
 These are often called non-functional, cross-cutting requirements. System quality attributes another term sounds like QA.
 
 There are three parts to architecture characteristics
-![image](https://user-images.githubusercontent.com/27693622/225913974-d9594c0b-09c3-4907-aeaf-a31647609e26.png)
+![image](https://user-images.githubusercontent.com/27693622/225916115-81716f0b-3cc2-4c8a-b4aa-dfb33f0527ce.png)
+
+There can be more than one set of architecture characteristic which would lead to a distributed architecture.
+The most important part of architecture characteristics is the part that is critical or important to application success.
+For example, if we want to improve security we will impact performance because we have to do encryption, secrets hiding.
+If we support more architecture characteristics it necessarily makes the architecture more complex. The advice is to embrace simple
+design - the answer is support less stuff. The domain sits on top of the different characteristics. We shouldn't talk about the
+best design but the least worst design.
+
+![image](https://user-images.githubusercontent.com/27693622/225917687-df56555a-8be8-40bf-b770-cd46d5b7addb.png)
+
+Operational architecture characteristics are important because in modern architectures like microservices these are where 
+architecture and devops meet. These influence architecture. There are also quality and security.
+
+![image](https://user-images.githubusercontent.com/27693622/225966326-6f089108-e47d-4806-a658-718a37a993f0.png)
+
+![image](https://user-images.githubusercontent.com/27693622/225969865-151ba934-92ac-48e4-9c19-dc03b17d1156.png)
+
+![image](https://user-images.githubusercontent.com/27693622/225972064-c7bfc9c0-9c49-44cf-bad9-5976e082924d.png)
 
 #### Architecture Decision Records
 https://www.youtube.com/watch?v=7Gqn2dbt_JY
