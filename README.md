@@ -3,6 +3,8 @@
 
 
 #### Architecture Decision Records
+https://www.youtube.com/watch?v=7Gqn2dbt_JY
+
 Change existing design and find something which makes your eyes raise.
 Now you have two choices: 
 1. Blindly accept the design and work around it
@@ -13,6 +15,7 @@ Most designs are badly documented. What is documented is how it is built but not
 In the most case you only have oral history and what started as clear becomes degraded.
 Most designers don't like to write large documents and we don't like reading them before redesigning. 
 Michael Nygard proposed of small documents to clarify the most important design decisions:
+https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions
 
 Whenever the team makes a decision. We write a small document:
 
