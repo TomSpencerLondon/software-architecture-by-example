@@ -26,12 +26,17 @@ An auction company wants to take their auctions online to a nationwide scale--cu
 This is quite narrow but important part which is structural design. What is the starting point of the architectural style?
 There are two activities to structural design which feed into the above question:
 1. Architecture Characteristics
-2. Creating the components
+2. Logical design
 
 ### Architecture Characteristics
+We have requirements for Going, Going, Gone. This is part of the structural design. We will do the logical architecture next.
 
+![image](https://user-images.githubusercontent.com/27693622/225908893-802f915b-8e46-447e-bd27-90f4d8db3e74.png)
 
+These are often called non-functional, cross-cutting requirements. System quality attributes another term sounds like QA.
 
+There are three parts to architecture characteristics
+![image](https://user-images.githubusercontent.com/27693622/225913974-d9594c0b-09c3-4907-aeaf-a31647609e26.png)
 
 #### Architecture Decision Records
 https://www.youtube.com/watch?v=7Gqn2dbt_JY
