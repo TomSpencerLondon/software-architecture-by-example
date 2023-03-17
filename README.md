@@ -1,4 +1,35 @@
 #### Software Architecture by Example
+https://www.youtube.com/watch?v=KWKrSw_wI3s
+
+Neal Ford and Mark Richards - how do you become a software architect? This is the inspiration for
+Fundamentals of Software Architecture. Software Architecture by Example O'Reilly learning platform. How do we practice architecture.
+We need to practice to get better but designing opportunities are few and far between.
+
+
+### Going...Going...Gone!
+An auction company wants to take their auctions online to a nationwide scale--customers choose the auction to participate in, wait until the auction begins, then bid as if they were there in the room, with the auctioneer
+
+- **Users**: scale up to hundreds of participants (per auction), potentially up to thousands of participants, and as many simultaneous auctions as possible
+- **Requirements**:
+  - bidders can see a live video stream of the auction and see all bids as they occur
+  - auctions must be as real-time as possible
+  - both online and live bids must be received in the order in which they are placed
+  - bidders register with credit card; system automatically charges card if bidder wins
+  - participants must be tracked via a reputation index
+- **Additional Context**:
+  - auction company is expanding aggressively by merging with smaller competitors
+  - if nationwide auction is a success, replicate the model overseas
+  - budget is not constrained -- this is a strategic direction
+  - company just exited a lawsuit where they settled a suit alleging fraud
+
+### Structural Design in Software Architecture
+This is quite narrow but important part which is structural design. What is the starting point of the architectural style?
+There are two activities to structural design which feed into the above question:
+1. Architecture Characteristics
+2. Creating the components
+
+### Architecture Characteristics
+
 
 
 
