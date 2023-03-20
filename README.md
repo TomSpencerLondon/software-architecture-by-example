@@ -191,37 +191,6 @@ https://www.thoughtworks.com/radar/techniques/lightweight-architecture-decision-
 - short text file (one to two pages) describing a specific architecture decision
 - markdown or asciidoc
 - Nat Pryce ADR-tools
-- Micha Kops:  https://www.hascode.com/2018/05/managing-architecture-decision-records-with-adr-tools/
-  - The Agile Manifesto states that “Working software over comprehensive documentation” but this does not mean that there should be no documentation at all.
-  - a good facility on adr-tools is adr list:
-```bash
-$ adr list
-doc/architecture/decisions/0001-record-architecture-decisions.md
-doc/architecture/decisions/0002-use-hystrix-to-stabilize-integration-points.md
-doc/architecture/decisions/0003-use-thrift-for-data-serialization-between-system-a-and-system-b.md
-```
-- adr-tools also has a tool for superseding a decision
-```bash
- adr generate graph
-digraph {
-  node [shape=plaintext];
-  _1 [label="1. Record architecture decisions"; URL="0001-record-architecture-decisions.html"]
-  _2 [label="2. Use Hystrix to stabilize integration points"; URL="0002-use-hystrix-to-stabilize-integration-points.html"]
-  _1 -> _2 [style="dotted"];
-  _3 [label="3. Use Thrift for data serialization between system a and system b"; URL="0003-use-thrift-for-data-serialization-between-system-a-and-system-b.html"]
-  _2 -> _3 [style="dotted"];
-  _3 -> _4 [label="Superceded by"]
-  _4 [label="4. Use Avro for data serialization between system a and system b"; URL="0004-use-avro-for-data-serialization-between-system-a-and-system-b.html"]
-  _3 -> _4 [style="dotted"];
-  _4 -> _3 [label="Supercedes"]
-}
-```
-
-<img width="392" alt="image" src="https://user-images.githubusercontent.com/27693622/226395520-9f7b7272-0432-42a1-b82a-595915bcdca2.png">
-- When ADRs are linked somehow we want to document this and adr link eases this for us. Let’s use an example where ADR #4 amends ADR #2 so that we could link both with the following command:
-```bash
-$ adr link 4 Amends 2 "Amended by"
-```
 
 #### ADRs and request for comments (RFC)
 - Request for Comments status - specify deadline for when review would be complete
@@ -295,3 +264,85 @@ which can be accessed easily by a wiki or other document rendering software
 <img width="248" alt="image" src="https://user-images.githubusercontent.com/27693622/226401429-c53f859c-d431-4d94-9942-e8decc0bd9a2.png">
 
 
+### Micha Kops:  https://www.hascode.com/2018/05/managing-architecture-decision-records-with-adr-tools/
+- The Agile Manifesto states that “Working software over comprehensive documentation” but this does not mean that there should be no documentation at all.
+- The main problem with documentation is, that it needs to be close to the project and it needs to be short and concise or else it won’t be read or won’t be updated.
+- initialize adr:
+
+```bash
+$ adr init doc/architecture/decisions
+doc/architecture/decisions/0001-record-architecture-decisions.md
+```
+
+- create a new adr
+```bash
+$ adr new Use Hystrix to stabilize integration points
+doc/architecture/decisions/0002-use-hystrix-to-stabilize-integration-points.md
+```
+
+- supersede earlier decision:
+
+```bash
+$ adr new -s 3 Use Avro for data serialization between system a and system b
+doc/architecture/decisions/0004-use-avro-for-data-serialization-between-system-a-and-system-b.md
+```
+
+
+
+- a good facility on adr-tools is adr list:
+```bash
+$ adr list
+doc/architecture/decisions/0001-record-architecture-decisions.md
+doc/architecture/decisions/0002-use-hystrix-to-stabilize-integration-points.md
+doc/architecture/decisions/0003-use-thrift-for-data-serialization-between-system-a-and-system-b.md
+```
+- adr-tools also has a tool for superseding a decision
+
+```bash
+ adr generate graph
+digraph {
+  node [shape=plaintext];
+  _1 [label="1. Record architecture decisions"; URL="0001-record-architecture-decisions.html"]
+  _2 [label="2. Use Hystrix to stabilize integration points"; URL="0002-use-hystrix-to-stabilize-integration-points.html"]
+  _1 -> _2 [style="dotted"];
+  _3 [label="3. Use Thrift for data serialization between system a and system b"; URL="0003-use-thrift-for-data-serialization-between-system-a-and-system-b.html"]
+  _2 -> _3 [style="dotted"];
+  _3 -> _4 [label="Superceded by"]
+  _4 [label="4. Use Avro for data serialization between system a and system b"; URL="0004-use-avro-for-data-serialization-between-system-a-and-system-b.html"]
+  _3 -> _4 [style="dotted"];
+  _4 -> _3 [label="Supercedes"]
+}
+```
+
+- save graph to dot file:
+
+```bash
+adr generate graph > generated/graph.dot
+```
+Genarate image using GraphViz:
+
+```bash
+dot -Tpng generated/graph.dot -ogenerated/graph.png
+```
+
+Graph looks like this:
+<img width="392" alt="image" src="https://user-images.githubusercontent.com/27693622/226395520-9f7b7272-0432-42a1-b82a-595915bcdca2.png">
+- When ADRs are linked somehow we want to document this and adr link eases this for us. Let’s use an example where ADR #4 amends ADR #2 so that we could link both with the following command:
+
+- Generate table of contents:
+
+```bash
+> adr generate toc
+# Architecture Decision Records
+ 
+* [1. Record architecture decisions](0001-record-architecture-decisions.md)
+* [2. Use Hystrix to stabilize integration points](0002-use-hystrix-to-stabilize-integration-points.md)
+* [3. Use Thrift for data serialization between system a and system b](0003-use-thrift-for-data-serialization-between-system-a-and-system-b.md)
+* [4. Use Avro for data serialization between system a and system b](0004-use-avro-for-data-serialization-between-system-a-and-system-b.md)
+```
+
+- link adrs:
+
+```bash
+$ adr link 4 Amends 2 "Amended by"
+```
