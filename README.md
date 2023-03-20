@@ -130,3 +130,168 @@ quickly the context for the project.
 The most important part is not the tooling. The idea is the important point. If we document the most
 important decisions it makes it easier for your future self and future colleagues to make useful changes.
 
+### Neal Ford Fundamentals of Software Architecture: Chapter 19 - Architecture Decisions
+- Architecture decisions involve the structure of the applicatoin or system, but can involve technology deicisions
+- Good architecture decision helps guide development teams to make the right technical choices
+- Making architecture decisions involves gathering enough relevant information, justifying the decision, and effectively
+communicating the decision to the right stakeholders
+
+#### Architecture Decision Anti-Patterns
+- Anti-pattern = something that seems to be a good idea when you begin but leads to trouble
+- Anti-pattern = repeatable process that produces negative results
+- 3 main architecture anti patterns:
+  - Covering your assets
+  - Groundhog Day
+  - Email driven Architecture
+- They are progressive
+  - Covering your assets = overcoming => Groundhog Day = overcoming => Email-Driven Architecture
+- Making effective and accurate architecture decisions requires architect to overcome all three anti-patterns
+
+#### Covering your assets Anti-Pattern
+- Architect avoids or defers making an architecture decision out of fear of making the wrong choice
+- Two ways to overcome:
+1. Wait until last responsible moment to make an important architecture decision
+   - wait until have enough information to justify and validate the decision
+   - Not wait too long to fall into Analysis Paralysis 
+2. Continually collaborate with development teams to ensure that the decision you made can be implemented as expected
+  - Close collaboration enables the architect to respond quickly to change in architecture decision
+
+#### Groundhog Day Anti-Pattern
+- People don't know why a decision was made so it keeps getting discussed over and over and over
+- Comes about because architect has failed to provide a justification for the decision
+- Four most common business justifications include cost, time to market, user satisfaction and strategic positioning
+
+#### Email-Driven Architecture Anti-Pattern
+- People lose, forget or don't even know an architecture decision has been made and cannot implement the decision
+- Email is good tool for communication but poor document repository system
+- Don't include architecture decision in the body of the email
+- Often important details including justification are left out of the email => groundhog day anti-pattern
+- Better mention only the nature and context of the decision in the body of the email and provide link to single system of record
+- only notify people who really care about the architecture decision:
+  - "Hi Sandra, I've made an important decision regarding communication between services that directly impacts you. Please see the
+decision using the following link..."
+  - important decision regarding communication between services (context)
+  - directly impacts you (impact for person)
+  - Single system of record for the decision
+
+#### Architecturally significant
+- Architecturally significant = decisions that affect the structure, nonfunctional characteristics, dependencies, interfaces or construction
+techniques
+- structure refers to decisions that impact patterns or styles of architecture being used
+- nonfunctional characteristics = ilities
+- dependencies = coupling points between components and / or services in the sysetm => affect scalability, modularity, 
+agility, testability, reliability and so on
+- Interfaces = how services and components are accessed and orchestrated - through gateway, integration hub, service bus or API proxy.
+  - defining contracts including versioning and deprecation of the contracts
+- construction techniques = decisions on platforms, frameworks, tools and processes that impasct some aspect of the architecture
+
+#### Architecture Decision Records
+https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+https://www.thoughtworks.com/radar/techniques/lightweight-architecture-decision-records
+- short text file (one to two pages) describing a specific architecture decision
+- markdown or asciidoc
+- Nat Pryce ADR-tools
+- Micha Kops:  https://www.hascode.com/2018/05/managing-architecture-decision-records-with-adr-tools/
+  - The Agile Manifesto states that “Working software over comprehensive documentation” but this does not mean that there should be no documentation at all.
+  - a good facility on adr-tools is adr list:
+```bash
+$ adr list
+doc/architecture/decisions/0001-record-architecture-decisions.md
+doc/architecture/decisions/0002-use-hystrix-to-stabilize-integration-points.md
+doc/architecture/decisions/0003-use-thrift-for-data-serialization-between-system-a-and-system-b.md
+```
+- adr-tools also has a tool for superseding a decision
+```bash
+ adr generate graph
+digraph {
+  node [shape=plaintext];
+  _1 [label="1. Record architecture decisions"; URL="0001-record-architecture-decisions.html"]
+  _2 [label="2. Use Hystrix to stabilize integration points"; URL="0002-use-hystrix-to-stabilize-integration-points.html"]
+  _1 -> _2 [style="dotted"];
+  _3 [label="3. Use Thrift for data serialization between system a and system b"; URL="0003-use-thrift-for-data-serialization-between-system-a-and-system-b.html"]
+  _2 -> _3 [style="dotted"];
+  _3 -> _4 [label="Superceded by"]
+  _4 [label="4. Use Avro for data serialization between system a and system b"; URL="0004-use-avro-for-data-serialization-between-system-a-and-system-b.html"]
+  _3 -> _4 [style="dotted"];
+  _4 -> _3 [label="Supercedes"]
+}
+```
+
+<img width="392" alt="image" src="https://user-images.githubusercontent.com/27693622/226395520-9f7b7272-0432-42a1-b82a-595915bcdca2.png">
+- When ADRs are linked somehow we want to document this and adr link eases this for us. Let’s use an example where ADR #4 amends ADR #2 so that we could link both with the following command:
+```bash
+$ adr link 4 Amends 2 "Amended by"
+```
+
+#### ADRs and request for comments (RFC)
+- Request for Comments status - specify deadline for when review would be complete
+
+#### Compliance
+- Neal Ford suggests Compliance section - forces the architect to think how the architecture decision will be measured and governed
+from compliance perspective
+- Possible to automate the decision with a fitness function
+- ArchUnit - measure interaction of business and services layer
+
+<img width="362" alt="image" src="https://user-images.githubusercontent.com/27693622/226397857-e2e62098-3db9-4ae0-b6db-4bebeaeb5754.png">
+
+- Measured by using ArchUnit
+```java
+class ArchUnit {
+
+  @Test
+  public void shared_services_should_reside_in_services_layer() {
+      classes().that().areAnnotatedWith(SharedService.class)
+              .should()
+              .resideInAPackage("..services..")
+              .because(
+                      "All shared services classes used by business " + 
+                      "objects in the business layer should reside in the services " +
+                      "layer to isolate and contain shared logic" +
+              ).check(myClasses);
+  }
+}
+```
+
+### Notes
+Neal Ford also advises using a notes section:
+- original author
+- approval date
+- approved by
+- superseded date
+- last modified date
+- modified by
+- last modification
+
+### Storage
+- Large applicatoins not stored in code
+- store in a wiki or in a shared directory on a shared file server 
+which can be accessed easily by a wiki or other document rendering software
+- Example directory structure:
+<img width="352" alt="image" src="https://user-images.githubusercontent.com/27693622/226399463-bacb909e-a013-48fc-8bbe-2152943160e5.png">
+
+- application = decisions specific to application context
+  - common = apply all applications
+    - e.g. "All framework related classes will contain an annotation identifying the class as belonging to the underlying framework code"
+  - others specific application context
+- integration = ADRs involving communication between application, systems / services
+- enterprise = global architecture decisions impacting all systems and applicatoins
+  - e.g. "All access to a sysetm database will only be from the owning sysetm"
+- Each ADR in wiki sysetm is single wiki page within each navigational landing page
+  (Application, Integration or Enterprise)
+- ADRs are standard for documenting software architecture
+- ADRs can also be used for standards
+  - forces the architect to justify the standard
+
+### Example - Going Going Gone
+- Use of event-driven microservices
+- Splitting up the bidder and auctioneer user interfaces
+- Use of Real time Transport Protocol for video capture
+- Use of single aPI layer
+- Use of publish-and-subscribe messaging
+
+"Every architecture decision made in a system no matter how obvious should be documented and justified"
+<img width="433" alt="image" src="https://user-images.githubusercontent.com/27693622/226401346-be33faa3-285f-4132-beab-0b22247b4441.png">
+
+<img width="248" alt="image" src="https://user-images.githubusercontent.com/27693622/226401429-c53f859c-d431-4d94-9942-e8decc0bd9a2.png">
+
+
