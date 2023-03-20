@@ -275,7 +275,7 @@ which can be accessed easily by a wiki or other document rendering software
   - others specific application context
 - integration = ADRs involving communication between application, systems / services
 - enterprise = global architecture decisions impacting all systems and applicatoins
-  - e.g. "All access to a sysetm database will only be from the owning sysetm"
+  - e.g. "All access to a system database will only be from the owning sysetm"
 - Each ADR in wiki sysetm is single wiki page within each navigational landing page
   (Application, Integration or Enterprise)
 - ADRs are standard for documenting software architecture
